@@ -8,6 +8,7 @@ namespace HomeWork_6_11
         static void Main(string[] args)
         {
             Aquarium aquarium = new Aquarium();
+            aquarium.Start();
         }
     }
 
@@ -22,10 +23,35 @@ namespace HomeWork_6_11
             _maxCount = SetCapacityAquarium();
         }
 
-        private void Start()
+        public void Start()
         {
-            Console.WriteLine("Выбирите пункт меню: ");
+            const string CommandAddFish = "1";
+            const string CommandRemoveFish = "2";
+            bool isWork = true;
+            while (isWork)
+            {
+                Console.WriteLine("Выбирите пункт меню: ");
+                Console.WriteLine($"{CommandAddFish}.Добавить рыбку в аквариум");
+                Console.WriteLine($"{CommandRemoveFish}.Удалить рыбку из акавариума");
+                string userInput = Console.ReadLine();
+
+                switch (userInput)
+                {
+                    case CommandAddFish:
+                        AddFish();
+                        break;
+
+                    case CommandRemoveFish:
+                        RemoveFish();
+                        break;
+
+                    default:
+                        Console.WriteLine("Введена неверная команда !");
+                        break;
+                }
+            }
         }
+
         private void AddFish()
         {
             const int CommandAddGuppy = 1;
@@ -62,6 +88,7 @@ namespace HomeWork_6_11
 
                     default:
                         Console.WriteLine("Такой рыбки нету !");
+                        Console.ReadLine();
                         break;
                 }
             }
