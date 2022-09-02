@@ -25,10 +25,10 @@ namespace HomeWork_6_11
 
         public void Start()
         {
-            
             const string CommandAddFish = "1";
             const string CommandRemoveFish = "2";
             bool isWork = true;
+
             while (isWork)
             {
                 Console.Clear();
