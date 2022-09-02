@@ -25,11 +25,14 @@ namespace HomeWork_6_11
 
         public void Start()
         {
+            Console.Clear();
             const string CommandAddFish = "1";
             const string CommandRemoveFish = "2";
             bool isWork = true;
             while (isWork)
             {
+                ShowAllFishs();
+                Console.WriteLine();
                 Console.WriteLine("Выбирите пункт меню: ");
                 Console.WriteLine($"{CommandAddFish}.Добавить рыбку в аквариум");
                 Console.WriteLine($"{CommandRemoveFish}.Удалить рыбку из акавариума");
@@ -49,6 +52,7 @@ namespace HomeWork_6_11
                         Console.WriteLine("Введена неверная команда !");
                         break;
                 }
+                GrowAllFishs();
             }
         }
 
@@ -59,7 +63,7 @@ namespace HomeWork_6_11
             const int CommandAddLabeo = 3;
             const int CommandAddBarbus = 4;
 
-            Console.Write("Выбирите рыбку которую хотите добавить в аквариум: ");
+            Console.WriteLine("Выбирите рыбку которую хотите добавить в аквариум: ");
             Console.WriteLine($"{CommandAddGuppy}. Гуппи ");
             Console.WriteLine($"{CommandAddGoldFish}. Золотая рыбка ");
             Console.WriteLine($"{CommandAddLabeo}. Лабео ");
@@ -109,17 +113,21 @@ namespace HomeWork_6_11
 
         private void GrowAllFishs()
         {
-            foreach (Fish fish in _fishs)
+            if (_fishs.Count > 0)
             {
-                if (fish.IsAlive == true)
-                {
-                    fish.GrowAge();
-                }
-                else
-                {
-                    _fishs.Remove(fish);
-                    Console.WriteLine($"Рыбка умерла: {fish.Name}");
-                }
+                //foreach (Fish fish in _fishs)
+                //{
+                //    if (fish.IsAlive == true)
+                //    {
+                //        fish.GrowAge();
+                //    }
+                //    else
+                //    {
+                //        _fishs.Remove(fish);
+                //        Console.WriteLine($"Рыбка умерла: {fish.Name}");
+                //    }
+                //}
+                for
             }
         }
 
@@ -147,30 +155,11 @@ namespace HomeWork_6_11
 
         private int SetCapacityAquarium()
         {
-            const string CommandExit = "exit";
-            bool IsWork = true;
-            Console.Write("Введите емкость аквариума или exit для выхода:");
-
-            while (IsWork)
-            {
-                string userInput = Console.ReadLine();
-
-                switch (userInput.GetType().Name)
-                {
-                    case CommandExit:
-                        IsWork = false;
-                        break;
-
-                    case "Int32":
-                        return GetNumber();
-
-                    default:
-                        Console.WriteLine("Поробуйте ещё раз!");
-                        break;
-                }
-            }
-            return 0;
+            Console.Write("Введите емкость аквариума: ");
+            int userInput = GetNumber();
+            return userInput;
         }
+
         private void ShowAllFishs()
         {
             int index = 0;
@@ -187,7 +176,7 @@ namespace HomeWork_6_11
 
     abstract class Fish
     {
-        public bool IsAlive => Age > _maxAge;
+        public bool IsAlive => Age < _maxAge;
 
         protected int _maxAge;
 
