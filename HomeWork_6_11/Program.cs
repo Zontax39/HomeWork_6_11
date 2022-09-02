@@ -25,12 +25,13 @@ namespace HomeWork_6_11
 
         public void Start()
         {
-            Console.Clear();
+            
             const string CommandAddFish = "1";
             const string CommandRemoveFish = "2";
             bool isWork = true;
             while (isWork)
             {
+                Console.Clear();
                 ShowAllFishs();
                 Console.WriteLine();
                 Console.WriteLine("Выбирите пункт меню: ");
@@ -63,6 +64,7 @@ namespace HomeWork_6_11
             const int CommandAddLabeo = 3;
             const int CommandAddBarbus = 4;
 
+            Console.Clear();
             Console.WriteLine("Выбирите рыбку которую хотите добавить в аквариум: ");
             Console.WriteLine($"{CommandAddGuppy}. Гуппи ");
             Console.WriteLine($"{CommandAddGoldFish}. Золотая рыбка ");
@@ -115,19 +117,19 @@ namespace HomeWork_6_11
         {
             if (_fishs.Count > 0)
             {
-                //foreach (Fish fish in _fishs)
-                //{
-                //    if (fish.IsAlive == true)
-                //    {
-                //        fish.GrowAge();
-                //    }
-                //    else
-                //    {
-                //        _fishs.Remove(fish);
-                //        Console.WriteLine($"Рыбка умерла: {fish.Name}");
-                //    }
-                //}
-                for
+                for ( int i = 0; i < _fishs.Count; i++)
+                {
+                    if (_fishs[i].IsAlive == true)
+                    {
+                        _fishs[i].GrowAge();
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Рыбка умерла: {_fishs[i].Name}");
+                        _fishs.Remove(_fishs[i]);
+                        Console.ReadLine();
+                    }
+                }
             }
         }
 
