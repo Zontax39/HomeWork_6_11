@@ -22,18 +22,17 @@ namespace HomeWork_6_11
             _maxCount = SetCapacityAquarium();
         }
 
-        private void RemoveFish()
+        private void Start()
         {
-
+            Console.WriteLine("Выбирите пункт меню: ");
         }
-
         private void AddFish()
         {
             const int CommandAddGuppy = 1;
             const int CommandAddGoldFish = 2;
             const int CommandAddLabeo = 3;
             const int CommandAddBarbus = 4;
-            
+
             Console.Write("Выбирите рыбку которую хотите добавить в аквариум: ");
             Console.WriteLine($"{CommandAddGuppy}. Гуппи ");
             Console.WriteLine($"{CommandAddGoldFish}. Золотая рыбка ");
@@ -41,30 +40,84 @@ namespace HomeWork_6_11
             Console.WriteLine($"{CommandAddBarbus}. Барбус ");
             int userInput = GetNumber();
 
-            switch (userInput)
+            if (_fishs.Count < _maxCount)
             {
-                case CommandAddGuppy:
-                    _fishs.Add(new Guppy() );
-                    break;
+                switch (userInput)
+                {
+                    case CommandAddGuppy:
+                        _fishs.Add(new Guppy());
+                        break;
 
-                case CommandAddGoldFish:
-                    _fishs.Add(new GoldFish());
-                    break;
+                    case CommandAddGoldFish:
+                        _fishs.Add(new GoldFish());
+                        break;
 
-                case CommandAddLabeo:
-                    _fishs.Add(new Labeo());
-                    break;
+                    case CommandAddLabeo:
+                        _fishs.Add(new Labeo());
+                        break;
 
-                case CommandAddBarbus:
-                    _fishs.Add(new Barbus());
-                    break;
+                    case CommandAddBarbus:
+                        _fishs.Add(new Barbus());
+                        break;
 
-                default:
-                    Console.WriteLine("Такой рыбки нету !");
-                    break;
+                    default:
+                        Console.WriteLine("Такой рыбки нету !");
+                        break;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Нет места в аквариуме");
+                Console.ReadLine();
             }
         }
-        
+
+        private void RemoveFish()
+        {
+            int index;
+            Console.WriteLine("Введите номер рыбки для её удаления: ");
+            index = GetNumber();
+            _fishs.RemoveAt(index - 1);
+        }
+
+        private void GrowAllFishs()
+        {
+            foreach (Fish fish in _fishs)
+            {
+                if (fish.IsAlive == true)
+                {
+                    fish.GrowAge();
+                }
+                else
+                {
+                    _fishs.Remove(fish);
+                    Console.WriteLine($"Рыбка умерла: {fish.Name}");
+                }
+            }
+        }
+
+        private int GetNumber()
+        {
+            bool isWork = true;
+
+            while (isWork)
+            {
+                string userInput = Console.ReadLine();
+
+                if (int.TryParse(userInput, out int number))
+                {
+                    isWork = false;
+                    return number;
+                }
+                else
+                {
+                    Console.WriteLine("Попробуйте ещё раз!");
+                    isWork = true;
+                }
+            }
+            return 0;
+        }
+
         private int SetCapacityAquarium()
         {
             const string CommandExit = "exit";
@@ -91,31 +144,19 @@ namespace HomeWork_6_11
             }
             return 0;
         }
-
-        private int GetNumber()
+        private void ShowAllFishs()
         {
-            bool isWork = true;
+            int index = 0;
 
-            while (isWork)
+            Console.WriteLine("Рыбки:");
+
+            foreach (Fish fish in _fishs)
             {
-                string userInput = Console.ReadLine();
-
-                if (int.TryParse(userInput, out int number))
-                {
-                    isWork = false;
-                    return number;
-                }
-                else
-                {
-                    Console.WriteLine("Попробуйте ещё раз!");
-                    isWork = true;
-                }
+                index++;
+                Console.WriteLine($"{fish.Name} - {fish.Age}");
             }
-            return 0;
         }
     }
-
-
 
     abstract class Fish
     {
