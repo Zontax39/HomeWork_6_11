@@ -186,22 +186,22 @@ namespace HomeWork_6_11
             int minAge = 5;
             int maxAge = 7;
             Random random = new Random();
-            _maxAge = random.Next(minAge, maxAge);
+            MaxAge = random.Next(minAge, maxAge);
             Name = "Барбус";
         }
     }
 
     internal abstract class Fish
     {
-        protected int _maxAge;
+        protected int MaxAge;
         public int Age { get; protected set; }
-        public bool IsAlive => Age < _maxAge;
+        public bool IsAlive => Age < MaxAge;
         public string Name { get; protected set; }
         
         public Fish()
         {
             Age = 0;
-            _maxAge = 1;
+            MaxAge = 1;
         }
         public void GrowAge() => Age++;
     }
@@ -213,7 +213,7 @@ namespace HomeWork_6_11
             int minAge = 15;
             int maxAge = 20;
             Random random = new Random();
-            _maxAge = random.Next(minAge, maxAge);
+            MaxAge = random.Next(minAge, maxAge);
             Name = "Золотая рыбка";
         }
     }
@@ -225,7 +225,7 @@ namespace HomeWork_6_11
             Random random = new Random();
             int minAge = 10;
             int maxAge = 15;
-            _maxAge = random.Next(minAge, maxAge);
+            MaxAge = random.Next(minAge, maxAge);
             Name = "Гуппи";
         }
     }
@@ -237,7 +237,7 @@ namespace HomeWork_6_11
             int minAge = 7;
             int maxAge = 10;
             Random random = new Random();
-            _maxAge = random.Next(minAge, maxAge);
+            MaxAge = random.Next(minAge, maxAge);
             Name = "Лабео";
         }
     }
