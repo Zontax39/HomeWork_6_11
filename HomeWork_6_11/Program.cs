@@ -28,6 +28,15 @@ namespace HomeWork_6_11
         }
     }
 
+    internal class Program
+    {
+        private static void Main(string[] args)
+        {
+            Aquarium aquarium = new Aquarium();
+            aquarium.Start();
+        }
+    }
+
     internal class Aquarium
     {
         private List<Fish> _fishes;
@@ -230,15 +239,6 @@ namespace HomeWork_6_11
             Random random = new Random();
             _maxAge = random.Next(minAge, maxAge);
             Name = "Лабео";
-        }
-    }
-
-    internal class Program
-    {
-        private static void Main(string[] args)
-        {
-            Aquarium aquarium = new Aquarium();
-            aquarium.Start();
         }
     }
 }
