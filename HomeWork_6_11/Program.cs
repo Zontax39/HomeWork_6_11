@@ -3,16 +3,32 @@ using System.Collections.Generic;
 
 namespace HomeWork_6_11
 {
-    internal class Program
+    internal static class UserUtils
     {
-        static void Main(string[] args)
+        public static int GetNumber()
         {
-            Aquarium aquarium = new Aquarium();
-            aquarium.Start();
+            bool isWork = true;
+
+            while (isWork)
+            {
+                string userInput = Console.ReadLine();
+
+                if (int.TryParse(userInput, out int number))
+                {
+                    isWork = false;
+                    return number;
+                }
+                else
+                {
+                    Console.WriteLine("Попробуйте ещё раз!");
+                    isWork = true;
+                }
+            }
+            return 0;
         }
     }
 
-    class Aquarium
+    internal class Aquarium
     {
         private List<Fish> _fishes;
         private int _maxCount;
@@ -105,19 +121,11 @@ namespace HomeWork_6_11
             }
         }
 
-        private void RemoveFish()
-        {
-            int index;
-            Console.WriteLine("Введите номер рыбки для её удаления: ");
-            index = UserUtils.GetNumber();
-            _fishes.RemoveAt(index - 1);
-        }
-
         private void GrowAllFishs()
         {
             if (_fishes.Count > 0)
             {
-                for ( int i = 0; i < _fishes.Count; i++)
+                for (int i = 0; i < _fishes.Count; i++)
                 {
                     if (_fishes[i].IsAlive == true)
                     {
@@ -131,6 +139,14 @@ namespace HomeWork_6_11
                     }
                 }
             }
+        }
+
+        private void RemoveFish()
+        {
+            int index;
+            Console.WriteLine("Введите номер рыбки для её удаления: ");
+            index = UserUtils.GetNumber();
+            _fishes.RemoveAt(index - 1);
         }
 
         private int SetCapacityAquarium()
@@ -154,35 +170,7 @@ namespace HomeWork_6_11
         }
     }
 
-    abstract class Fish
-    {
-        public bool IsAlive => Age < _maxAge;
-        protected int _maxAge;
-        public int Age { get; protected set; }
-        public string Name { get; protected set; }
-
-        public Fish()
-        {
-            Age = 0;
-            _maxAge = 1;
-        }
-
-        public void GrowAge() => Age++;
-    }
-
-    class GoldFish : Fish
-    {
-        public GoldFish()
-        {
-            int minAge = 15;
-            int maxAge = 20;
-            Random random = new Random();
-            _maxAge = random.Next(minAge, maxAge);
-            Name = "Золотая рыбка";
-        }
-    }
-
-    class Barbus : Fish
+    internal class Barbus : Fish
     {
         public Barbus()
         {
@@ -194,19 +182,34 @@ namespace HomeWork_6_11
         }
     }
 
-    class Labeo : Fish
+    internal abstract class Fish
     {
-        public Labeo()
+        protected int _maxAge;
+        public int Age { get; protected set; }
+        public bool IsAlive => Age < _maxAge;
+        public string Name { get; protected set; }
+        
+        public Fish()
         {
-            int minAge = 7;
-            int maxAge = 10;
+            Age = 0;
+            _maxAge = 1;
+        }
+        public void GrowAge() => Age++;
+    }
+
+    internal class GoldFish : Fish
+    {
+        public GoldFish()
+        {
+            int minAge = 15;
+            int maxAge = 20;
             Random random = new Random();
             _maxAge = random.Next(minAge, maxAge);
-            Name = "Лабео";
+            Name = "Золотая рыбка";
         }
     }
 
-    class Guppy : Fish
+    internal class Guppy : Fish
     {
         public Guppy()
         {
@@ -218,32 +221,24 @@ namespace HomeWork_6_11
         }
     }
 
-    static class UserUtils { 
-        public static int GetNumber()
+    internal class Labeo : Fish
+    {
+        public Labeo()
         {
-            bool isWork = true;
+            int minAge = 7;
+            int maxAge = 10;
+            Random random = new Random();
+            _maxAge = random.Next(minAge, maxAge);
+            Name = "Лабео";
+        }
+    }
 
-            while (isWork)
-            {
-                string userInput = Console.ReadLine();
-
-                if (int.TryParse(userInput, out int number))
-                {
-                    isWork = false;
-                    return number;
-                }
-                else
-                {
-                    Console.WriteLine("Попробуйте ещё раз!");
-                    isWork = true;
-                }
-            }
-            return 0;
+    internal class Program
+    {
+        private static void Main(string[] args)
+        {
+            Aquarium aquarium = new Aquarium();
+            aquarium.Start();
         }
     }
 }
-
-
-
-
-
