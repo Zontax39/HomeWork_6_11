@@ -157,9 +157,9 @@ namespace HomeWork_6_11
     abstract class Fish
     {
         public bool IsAlive => Age < _maxAge;
-        protected int _maxAge;
         public int Age { get; protected set; }
         public string Name { get; protected set; }
+        protected int _maxAge;
 
         public Fish()
         {
