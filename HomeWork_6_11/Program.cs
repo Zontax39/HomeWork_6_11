@@ -14,12 +14,12 @@ namespace HomeWork_6_11
 
     class Aquarium
     {
-        private List<Fish> _fishs;
+        private List<Fish> _fishes;
         private int _maxCount;
 
         public Aquarium()
         {
-            _fishs = new List<Fish>();
+            _fishes = new List<Fish>();
             _maxCount = SetCapacityAquarium();
         }
 
@@ -70,26 +70,26 @@ namespace HomeWork_6_11
             Console.WriteLine($"{CommandAddGoldFish}. Золотая рыбка ");
             Console.WriteLine($"{CommandAddLabeo}. Лабео ");
             Console.WriteLine($"{CommandAddBarbus}. Барбус ");
-            int userInput = GetNumber();
+            int userInput = UserUtils.GetNumber();
 
-            if (_fishs.Count < _maxCount)
+            if (_fishes.Count < _maxCount)
             {
                 switch (userInput)
                 {
                     case CommandAddGuppy:
-                        _fishs.Add(new Guppy());
+                        _fishes.Add(new Guppy());
                         break;
 
                     case CommandAddGoldFish:
-                        _fishs.Add(new GoldFish());
+                        _fishes.Add(new GoldFish());
                         break;
 
                     case CommandAddLabeo:
-                        _fishs.Add(new Labeo());
+                        _fishes.Add(new Labeo());
                         break;
 
                     case CommandAddBarbus:
-                        _fishs.Add(new Barbus());
+                        _fishes.Add(new Barbus());
                         break;
 
                     default:
@@ -109,56 +109,34 @@ namespace HomeWork_6_11
         {
             int index;
             Console.WriteLine("Введите номер рыбки для её удаления: ");
-            index = GetNumber();
-            _fishs.RemoveAt(index - 1);
+            index = UserUtils.GetNumber();
+            _fishes.RemoveAt(index - 1);
         }
 
         private void GrowAllFishs()
         {
-            if (_fishs.Count > 0)
+            if (_fishes.Count > 0)
             {
-                for ( int i = 0; i < _fishs.Count; i++)
+                for ( int i = 0; i < _fishes.Count; i++)
                 {
-                    if (_fishs[i].IsAlive == true)
+                    if (_fishes[i].IsAlive == true)
                     {
-                        _fishs[i].GrowAge();
+                        _fishes[i].GrowAge();
                     }
                     else
                     {
-                        Console.WriteLine($"Рыбка умерла: {_fishs[i].Name}");
-                        _fishs.Remove(_fishs[i]);
+                        Console.WriteLine($"Рыбка умерла: {_fishes[i].Name}");
+                        _fishes.Remove(_fishes[i]);
                         Console.ReadLine();
                     }
                 }
             }
         }
 
-        private int GetNumber()
-        {
-            bool isWork = true;
-
-            while (isWork)
-            {
-                string userInput = Console.ReadLine();
-
-                if (int.TryParse(userInput, out int number))
-                {
-                    isWork = false;
-                    return number;
-                }
-                else
-                {
-                    Console.WriteLine("Попробуйте ещё раз!");
-                    isWork = true;
-                }
-            }
-            return 0;
-        }
-
         private int SetCapacityAquarium()
         {
             Console.Write("Введите емкость аквариума: ");
-            int userInput = GetNumber();
+            int userInput = UserUtils.GetNumber();
             return userInput;
         }
 
@@ -168,7 +146,7 @@ namespace HomeWork_6_11
 
             Console.WriteLine("Рыбки:");
 
-            foreach (Fish fish in _fishs)
+            foreach (Fish fish in _fishes)
             {
                 index++;
                 Console.WriteLine($"{fish.Name} - {fish.Age}");
@@ -179,9 +157,7 @@ namespace HomeWork_6_11
     abstract class Fish
     {
         public bool IsAlive => Age < _maxAge;
-
         protected int _maxAge;
-
         public int Age { get; protected set; }
         public string Name { get; protected set; }
 
@@ -239,6 +215,30 @@ namespace HomeWork_6_11
             int maxAge = 15;
             _maxAge = random.Next(minAge, maxAge);
             Name = "Гуппи";
+        }
+    }
+
+    static class UserUtils { 
+        public static int GetNumber()
+        {
+            bool isWork = true;
+
+            while (isWork)
+            {
+                string userInput = Console.ReadLine();
+
+                if (int.TryParse(userInput, out int number))
+                {
+                    isWork = false;
+                    return number;
+                }
+                else
+                {
+                    Console.WriteLine("Попробуйте ещё раз!");
+                    isWork = true;
+                }
+            }
+            return 0;
         }
     }
 }
