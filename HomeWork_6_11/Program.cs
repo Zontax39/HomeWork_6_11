@@ -45,7 +45,7 @@ namespace HomeWork_6_11
         public Aquarium()
         {
             _fishes = new List<Fish>();
-            _maxCount = SetCapacityAquarium();
+            _maxCount = GetCapacityAquarium();
         }
 
         public void Start()
@@ -158,7 +158,7 @@ namespace HomeWork_6_11
             _fishes.RemoveAt(index - 1);
         }
 
-        private int SetCapacityAquarium()
+        private int GetCapacityAquarium()
         {
             Console.Write("Введите емкость аквариума: ");
             int userInput = UserUtils.GetNumber();
