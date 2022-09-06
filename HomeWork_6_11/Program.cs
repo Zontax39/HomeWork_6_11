@@ -21,7 +21,6 @@ namespace HomeWork_6_11
                 else
                 {
                     Console.WriteLine("Попробуйте ещё раз!");
-                    isWork = true;
                 }
             }
             return 0;
@@ -134,17 +133,11 @@ namespace HomeWork_6_11
         {
             if (_fishes.Count > 0)
             {
-                for (int i = 0; i < _fishes.Count; i++)
+                foreach (Fish fish in _fishes) 
                 {
-                    if (_fishes[i].IsAlive == true)
+                    if (fish.IsAlive == true)
                     {
-                        _fishes[i].GrowAge();
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Рыбка умерла: {_fishes[i].Name}");
-                        _fishes.Remove(_fishes[i]);
-                        Console.ReadLine();
+                        fish.GrowAge();
                     }
                 }
             }
@@ -155,7 +148,15 @@ namespace HomeWork_6_11
             int index;
             Console.WriteLine("Введите номер рыбки для её удаления: ");
             index = UserUtils.GetNumber();
-            _fishes.RemoveAt(index - 1);
+
+            if (index <= _fishes.Count)
+            {
+                _fishes.RemoveAt(index - 1);
+            }
+            else
+            {
+                Console.WriteLine("Такой рыбки нет !");
+            }    
         }
 
         private int GetCapacityAquarium()
@@ -174,23 +175,15 @@ namespace HomeWork_6_11
             foreach (Fish fish in _fishes)
             {
                 index++;
-                Console.WriteLine($"{fish.Name} - {fish.Age}");
+                Console.Write($"{fish.Name} - {fish.Age}");
+
+                if (fish.IsAlive == false)
+                {
+                    Console.Write(" : Рыбка умерла!");
+                }
             }
         }
     }
-
-    internal class Barbus : Fish
-    {
-        public Barbus()
-        {
-            int minAge = 5;
-            int maxAge = 7;
-            Random random = new Random();
-            MaxAge = random.Next(minAge, maxAge);
-            Name = "Барбус";
-        }
-    }
-
     internal abstract class Fish
     {
         protected int MaxAge;
@@ -198,47 +191,33 @@ namespace HomeWork_6_11
         public bool IsAlive => Age < MaxAge;
         public string Name { get; protected set; }
         
-        public Fish()
+        public Fish(string name, int minAge, int maxAge)
         {
             Age = 0;
-            MaxAge = 1;
+            Name = name;
+            Random random = new Random();
+            MaxAge = random.Next(minAge, maxAge);
         }
         public void GrowAge() => Age++;
     }
 
+    internal class Barbus : Fish
+    {
+        public Barbus() : base("Барбус", 5, 7) { }
+    }
+
     internal class GoldFish : Fish
     {
-        public GoldFish()
-        {
-            int minAge = 15;
-            int maxAge = 20;
-            Random random = new Random();
-            MaxAge = random.Next(minAge, maxAge);
-            Name = "Золотая рыбка";
-        }
+        public GoldFish() : base("Золотая рыбка", 15, 20) { }
     }
 
     internal class Guppy : Fish
     {
-        public Guppy()
-        {
-            Random random = new Random();
-            int minAge = 10;
-            int maxAge = 15;
-            MaxAge = random.Next(minAge, maxAge);
-            Name = "Гуппи";
-        }
+        public Guppy() : base("Гуппи", 10, 15) { }
     }
 
     internal class Labeo : Fish
     {
-        public Labeo()
-        {
-            int minAge = 7;
-            int maxAge = 10;
-            Random random = new Random();
-            MaxAge = random.Next(minAge, maxAge);
-            Name = "Лабео";
-        }
+        public Labeo() : base("Лабео", 7, 10) { }
     }
 }
