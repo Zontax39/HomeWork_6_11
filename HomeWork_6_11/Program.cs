@@ -83,44 +83,26 @@ namespace HomeWork_6_11
 
         private void AddFish()
         {
-            const int CommandAddGuppy = 1;
-            const int CommandAddGoldFish = 2;
-            const int CommandAddLabeo = 3;
-            const int CommandAddBarbus = 4;
-
+            List<Fish> fishes = new List<Fish>();
+            fishes.Add(new GoldFish());
+            fishes.Add(new Guppy());
+            fishes.Add(new Barbus());
+            fishes.Add(new Labeo());
+            int index = 0;
             Console.Clear();
             Console.WriteLine("Выбирите рыбку которую хотите добавить в аквариум: ");
-            Console.WriteLine($"{CommandAddGuppy}. Гуппи ");
-            Console.WriteLine($"{CommandAddGoldFish}. Золотая рыбка ");
-            Console.WriteLine($"{CommandAddLabeo}. Лабео ");
-            Console.WriteLine($"{CommandAddBarbus}. Барбус ");
+
+            foreach (Fish fish in fishes)
+            {
+                index++;
+                Console.WriteLine($"{index}.{fish.Name}");
+            }
+
             int userInput = UserUtils.GetNumber();
 
             if (_fishes.Count < _maxCount)
             {
-                switch (userInput)
-                {
-                    case CommandAddGuppy:
-                        _fishes.Add(new Guppy());
-                        break;
-
-                    case CommandAddGoldFish:
-                        _fishes.Add(new GoldFish());
-                        break;
-
-                    case CommandAddLabeo:
-                        _fishes.Add(new Labeo());
-                        break;
-
-                    case CommandAddBarbus:
-                        _fishes.Add(new Barbus());
-                        break;
-
-                    default:
-                        Console.WriteLine("Такой рыбки нету !");
-                        Console.ReadLine();
-                        break;
-                }
+                _fishes.Add(fishes[userInput-1]);
             }
             else
             {
@@ -181,6 +163,7 @@ namespace HomeWork_6_11
                 {
                     Console.Write(" : Рыбка умерла!");
                 }
+                Console.WriteLine();
             }
         }
     }
